@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "205808878288",
+    "firebase_url": "https://bottomsup-dc9b3.firebaseio.com",
+    "project_id": "bottomsup-dc9b3",
+    "storage_bucket": "bottomsup-dc9b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205808878288:android:f5c6233ed5e046ca6e14d5",
+        "android_client_info": {
+          "package_name": "alexpetroadam.bottoms_up"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205808878288-vrj8bmk06dol42b4sn8d4uahrs1q8u59.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "alexpetroadam.bottoms_up",
+            "certificate_hash": "9901e4218b4883723413d8818cba52e39cf9d9ab"
+          }
+        },
+        {
+          "client_id": "205808878288-rsotqqu5mji0e27j4rmq19ta7nsgabhv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDesIGRskQEMyYuuWO3dFG9eryVfNpC9js"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205808878288-rsotqqu5mji0e27j4rmq19ta7nsgabhv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
