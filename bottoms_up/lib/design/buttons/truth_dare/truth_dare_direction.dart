@@ -7,8 +7,8 @@ class TruthDareDirection extends StatelessWidget {
 
   const TruthDareDirection({
     Key key,
-    @required this.icon,
-    @required this.function,
+    this.icon,
+    this.function,
   }) : super(key: key);
 
   @override

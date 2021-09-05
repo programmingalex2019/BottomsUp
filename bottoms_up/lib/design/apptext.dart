@@ -4,6 +4,12 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppText {
+
+
+  static String get truthDareDescription => " but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+  static String get headsTailsDescription => " but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+  static String get kingsCupDescription => " but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+
   //Splash Screen
   static TextStyle get splashText {
     return TextStyle(
@@ -44,8 +50,7 @@ abstract class AppText {
   }
 
   //TruthDare Game Tile Text
-  static TextStyle truthTextStyle(
-          {MediaQueryData mediaQuery, double fontSize}) =>
+  static TextStyle truthTextStyle({double fontSize}) =>
       TextStyle(
         fontFamily: 'Gagalin',
         color: Colors.white,
@@ -53,7 +58,7 @@ abstract class AppText {
         shadows: AppText.truthDareShadow,
       );
 
-  static TextStyle orTextStyle({MediaQueryData mediaQuery, double fontSize}) =>
+  static TextStyle orTextStyle({double fontSize}) =>
       TextStyle(
         fontFamily: 'Bukhari',
         color: Colors.white,
@@ -61,8 +66,7 @@ abstract class AppText {
         shadows: AppText.truthDareShadow,
       );
 
-  static TextStyle dareTextStyle(
-          {MediaQueryData mediaQuery, double fontSize}) =>
+  static TextStyle dareTextStyle({double fontSize}) =>
       TextStyle(
         fontFamily: 'Gagalin',
         color: Colors.white,
@@ -98,15 +102,14 @@ abstract class AppText {
   //Heads Or Tails Text
   static headsTailsTitleText({String text, double size}) => Text(
         text,
-        style: headsTailsTitleTextStyle(fontSize: size, isQuestionType: false),
+        style: headsTailsTitleTextStyle(fontSize: size),
       );
 
-  static TextStyle headsTailsTitleTextStyle(
-          {double fontSize, @required bool isQuestionType}) =>
+  static TextStyle headsTailsTitleTextStyle({double fontSize}) =>
       TextStyle(
         fontSize: fontSize,
         fontFamily: 'Bungee',
-        color: isQuestionType ? Color(0xFFffbd59) : Color(0xFF7943e6),
+        color: Color(0xFF7943e6),
         shadows: <Shadow>[
           Shadow(
             offset: Offset(1.7, -0.8),
@@ -119,19 +122,66 @@ abstract class AppText {
         ],
       );
 
-  static TextStyle headTailsCoinTextStyle(
-          {MediaQueryData mediaQuery, double fontSize}) =>
+  static TextStyle headsTailsCardTextStyle({double fontSize, Color color}) =>
       TextStyle(
-        fontFamily: 'Gagalin',
-        color: Color(0xFF7943e6),
         fontSize: fontSize,
+        fontFamily: 'Bungee',
+        color: color,
+        shadows: <Shadow>[
+          Shadow(
+            offset: Offset(1, 1),
+            color: Colors.black.withOpacity(0.8),
+          ),
+        ],
       );
 
+  static TextStyle headTailsCoinTextStyle({MediaQueryData mediaQuery, double fontSize}) =>
+      TextStyle(
+        fontSize: fontSize,
+        fontFamily: 'Bungee',
+        color: Color(0xFF7943e6),
+        shadows: <Shadow>[
+          Shadow(
+            offset: Offset(-1.4, 1.5),
+            color: Color(0Xffff25ff).withOpacity(0.8),
+            blurRadius: 2,
+          ),
+          Shadow(
+            offset: Offset(-1.4, 1.5),
+            color: Color(0Xffff25ff).withOpacity(0.8),
+          ),
+        ],
+      );
+
+
+
   //Kings Cup Text
-  static TextStyle kingsCupTextStyle() => TextStyle(
-        fontSize: 60.0,
+  static TextStyle kingsCupTextStyle({MediaQueryData mediaQuery}) => TextStyle(
+        fontSize: mediaQuery.size.height / 14,
         fontFamily: "Monoton",
         height: 1,
         color: Colors.white,
       );
+
+  //Spin The Bottle Text
+  static TextStyle spinTheBottleTextStyle({MediaQueryData mediaQuery}) => TextStyle(
+        fontSize: mediaQuery.size.height / 15,
+        fontFamily: "Tomorrow",
+        fontWeight: FontWeight.bold,
+        height: 1,
+        letterSpacing: 8,
+        color: Colors.white,
+        shadows: <Shadow>[
+          Shadow(
+            offset: Offset(5, 1),
+            color: Color(0xFF00ffff).withOpacity(0.8),
+            blurRadius: 2,
+          ),
+          Shadow(
+            offset: Offset(-3, -1),
+            color: Color(0xFFff00ff).withOpacity(0.8),
+          ),
+        ],
+      );
+
 }

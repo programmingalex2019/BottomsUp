@@ -1,7 +1,9 @@
 import 'package:bottoms_up/design/appbase.dart';
 import 'package:bottoms_up/screens/home.dart';
 import 'package:bottoms_up/services/heads_tails_manager.dart';
+import 'package:bottoms_up/services/kings_cup_manager.dart';
 import 'package:bottoms_up/services/routes.dart';
+import 'package:bottoms_up/services/spin_bottle_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -17,6 +19,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<TruthDareManager>(create: (context) => TruthDareManager()),
         ChangeNotifierProvider<HeadsTailsManager>(create: (context) => HeadsTailsManager()),
+        ChangeNotifierProvider<KingsCupManager>(create: (context) => KingsCupManager()),
+        ChangeNotifierProvider<SpinTheBottleManager>(create: (context) => SpinTheBottleManager()),
       ],
       child: PlatformApp(), //cross platform app //orientation Portrait //TODO: set orientation for IOS 
     );

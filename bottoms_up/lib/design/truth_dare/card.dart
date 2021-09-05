@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 class SwipeAppCard extends StatelessWidget {
 
+
+  
   //colors
   final Color borderColor;
   //Content
@@ -20,7 +22,7 @@ class SwipeAppCard extends StatelessWidget {
     this.borderColor,
     this.currentGameType,
     this.currentCardType,
-    @required this.currentQuestion, 
+    this.currentQuestion, 
     this.currentQuestionTextStyle, 
     this.currentCardTypeTextStyle, 
     this.currentGameTypeTextStyle,
@@ -45,10 +47,13 @@ class SwipeAppCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Text(
-              currentCardType ?? "Some Type",
-              textAlign: TextAlign.center,
-              style: currentCardTypeTextStyle,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 13.0),
+              child: Text(
+                currentCardType ?? "Some Type",
+                textAlign: TextAlign.center,
+                style: currentCardTypeTextStyle,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

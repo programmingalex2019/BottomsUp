@@ -10,6 +10,7 @@ admin.initializeApp({
 const firestore = admin.firestore();
 const path = require("path");
 const fs = require("fs");
+const { timeStamp } = require("console");
 const directoryPath = path.join(__dirname, "files");
 
 fs.readdir(directoryPath, function(err, files) {
@@ -18,13 +19,13 @@ fs.readdir(directoryPath, function(err, files) {
     }
 
     files.forEach(function(file) {
-        let lastDotIndex = file.lastIndexOf(".");
+        var lastDotIndex = file.lastIndexOf(".");
 
-        let menu = require("./files/" + file);
+        var menu = require("./files/" + file);
 
         menu.forEach(function(obj) {
             firestore
-                .collection("/users/heads-tails/heads-tails")
+                .collection("/users/spin-bottle/spin-bottle")
                 .add(obj)
                 .then(function(docRef) {
                     console.log("Document written");

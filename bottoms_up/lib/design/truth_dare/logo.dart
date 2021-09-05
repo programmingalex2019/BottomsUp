@@ -10,7 +10,7 @@ class TruthDareLogo extends StatelessWidget {
 
   const TruthDareLogo({
     Key key,
-    @required this.mediaQuery, @required this.width, @required this.height,
+    this.mediaQuery, this.width, this.height,
   }) : super(key: key);
 
   final MediaQueryData mediaQuery;

@@ -1,5 +1,6 @@
 import 'package:bottoms_up/screens/games/headTails/head_tails.dart';
 import 'package:bottoms_up/screens/games/kindsCup/kings_cup.dart';
+import 'package:bottoms_up/screens/games/spinBottle/spinBottle.dart';
 import 'package:bottoms_up/screens/games/truthDare/truth_dare.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
@@ -10,26 +11,37 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   int currentPage = 0;
+
+  LiquidController liquidController;
+
+  @override
+  void initState() {
+    super.initState();
+    liquidController = LiquidController();
+  }
 
   @override
   Widget build(BuildContext context) {
+    
+
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       body: Container(
         child: Stack(
           children: [
             LiquidSwipe(
               pages: liquidPages,
+              liquidController: liquidController,
               fullTransitionValue: 1000, //how long transition
               enableLoop: true, //start from beginning when ended
-              enableSlideIcon:
-                  true, //arrow //can be edited // positionSlideIcon y axis
-              positionSlideIcon: 0.8,
+              enableSideReveal: false,
+              slideIconWidget: Icon(Icons.arrow_left),
+              positionSlideIcon: 0.7,
               waveType: WaveType.liquidReveal,
               onPageChangeCallback: (page) => pageChangeCallback(page),
-              currentUpdateTypeCallback: (updateType) =>
-                  updateTypeCallback(updateType),
+              currentUpdateTypeCallback: (updateType) => updateTypeCallback(updateType),
             ),
           ],
         ),
@@ -43,6 +55,7 @@ class _HomeState extends State<Home> {
     });
   }
 
+
   updateTypeCallback(UpdateType updateType) {
     
   }
@@ -54,4 +67,5 @@ final liquidPages = [
   TruthDare(), //TruthDare
   HeadsTails(),
   KingsCup(),
+  SpinTheBottle(),
 ];

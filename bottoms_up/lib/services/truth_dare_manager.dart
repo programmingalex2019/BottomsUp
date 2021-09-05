@@ -3,16 +3,17 @@ import 'dart:math';
 import 'package:flutter/widgets.dart';
 
 class TruthDareManager extends ChangeNotifier {
-  //notifier variables
+
   List<String> questions = []; //list of all questions types to require
+
   //questionsType
   bool party = false; 
   bool dirty = false;
   bool couples = false;
-  //check if above has one true
-  bool oneTrue = false;
-  //initial question of the cards
-  String currentQuestion = "Swipe Left for Dare. Swipe Right for Truth";
+
+  bool oneTrue = false;   //check if above has one true
+
+  String currentQuestion = "Swipe Left for Dare. Swipe Right for Truth";   //initial question of the cards
   //initial card game type
   String currentCardType = "";
   //initial game type
@@ -35,6 +36,7 @@ class TruthDareManager extends ChangeNotifier {
   void setCurrentCardType(String currentType){
     currentCardType = currentType;
   }
+  
   //party dirty or couples 
   void setCurrentGameType(String gameType){
     currentGameType = gameType;
@@ -111,13 +113,18 @@ class TruthDareManager extends ChangeNotifier {
     typeQuestions.shuffle(); //shuffle deck
     //generate random index
     Random random = new Random();
-    int which = random.nextInt(typeQuestions.length); //range is the list size
+    
+    int which = (typeQuestions.length - 1 > 1) ? random.nextInt(typeQuestions.length - 1) : 0; //range is the list size
 
     //assign currentQuestion to be...
-    currentQuestion = typeQuestions[which];
 
-    //avoid repetition mechanics 
-    typeQuestions.removeAt(which);
+    if(typeQuestions.length > 0){
+      currentQuestion = typeQuestions[which];
+      print(currentQuestion);
+      typeQuestions.removeAt(which);
+    }
+ 
+    print("Strings left: ${typeQuestions.length}");
 
     notifyListeners();
   }
@@ -137,6 +144,16 @@ class TruthDareManager extends ChangeNotifier {
     currentCardType = "Bottoms Up";
     currentGameType = "18+";
     notifyListeners();
+  }
+
+  void cardContentManagement({int truthOrDare, TruthDareManager manager, AsyncSnapshot<List<List<String>>> snapshot, String currentCardType, VoidCallback reload}) {
+
+    manager.shuffleAndReturn(snapshot.data[truthOrDare]); //get questions from dare/truth stack
+    manager.setCurrentCardType(currentCardType); //set current card type
+    manager.setCurrentGameType(manager.questions[0]); //set current game mode
+
+    //when run out of questions
+    reload();
   }
 
   

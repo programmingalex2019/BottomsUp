@@ -8,8 +8,8 @@ class GameInfo extends StatelessWidget {
 
   const GameInfo({
     Key key,
-    @required this.gameName,
-    @required this.gameDescription,
+    this.gameName,
+    this.gameDescription,
   }) : super(key: key);
 
   @override
@@ -51,7 +51,7 @@ class GameInfo extends StatelessWidget {
                   Expanded(
                     flex: 5,
                     child: Padding(
-                      padding: const EdgeInsets.all(22.0),
+                      padding: EdgeInsets.symmetric(horizontal: mediaQuery.size.height / 25, vertical: 0),
                       child: AutoSizeText(
                         gameDescription,
                         textAlign: TextAlign.center,

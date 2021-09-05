@@ -3,6 +3,7 @@ import 'package:bottoms_up/design/appcolors.dart';
 import 'package:bottoms_up/design/apptext.dart';
 import 'package:bottoms_up/design/buttons/common_start_button.dart';
 import 'package:bottoms_up/screens/game_info.dart';
+import 'package:bottoms_up/services/size_config.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -12,144 +13,153 @@ class TruthDare extends StatefulWidget {
 }
 
 class _TruthDareState extends State<TruthDare> {
-@override
+
+  @override
   Widget build(BuildContext context) {
+
     final MediaQueryData mediaQuery = MediaQuery.of(context); //device width
-    return Container(
-      decoration: BoxDecoration(
-        gradient: AppColors.truthDareGradient, //background color
-      ),
-      child: Column(
-        children: [
-          Container(
-            width: mediaQuery.size.width,
-            height: mediaQuery.size.height / 2.5,
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: AppBase.tDlogoPadding(mediaQuery),
-                    child: Container(
-                      width: mediaQuery.size.width, //no height since expanded
-                      child: Transform.rotate(
-                        angle: -pi / 18, //angle the TRUTH text
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              child: Transform.rotate(
-                                angle: pi / 13,
-                                child: AppBase
-                                    .truthDareHalo(), // halo vector angled
-                              ),
-                            ),
-                            Positioned(
-                              left: mediaQuery.size.width / 39,
-                              top: mediaQuery.size.height / 90,
-                              child: Container(
-                                child: Text(
-                                  'TRUTH', //custom text style
-                                  style: AppText.truthTextStyle(
-                                    mediaQuery: mediaQuery,
-                                    fontSize: mediaQuery.size.width / 6.0,
+
+    SizeConfig().init(context);
+    
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: AppColors.truthDareGradient, //background color
+          ),
+          child: Column(
+            children: [
+              Container(
+                width: SizeConfig.blockSizeHorizontal * 100,
+                height: SizeConfig.blockSizeVertical * 40,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: AppBase.tDlogoPadding(context),
+                        child: Container(
+                          width: mediaQuery.size.width, //no height since expanded
+                          child: Transform.rotate(
+                            angle: -pi / 18, //angle the TRUTH text
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  child: Transform.rotate(
+                                    angle: pi / 13,
+                                    child: AppBase
+                                        .truthDareHalo(), // halo vector angled
                                   ),
                                 ),
-                              ),
-                            ),
-                            Positioned(
-                              top: mediaQuery.size.width / 4.9,
-                              left: mediaQuery.size.width / 2.9,
-                              child: Text(
-                                'Or', //custom text style
-                                style: AppText.orTextStyle(
-                                  mediaQuery: mediaQuery,
-                                  fontSize: mediaQuery.size.width / 13,
+                                Positioned(
+                                  left: SizeConfig.blockSizeHorizontal * 2.56,
+                                  top: SizeConfig.blockSizeVertical * 1.11,
+                                  child: Container(
+                                    child: Text(
+                                      'TRUTH', //custom text style
+                                      style: AppText.truthTextStyle(
+                                        
+                                        fontSize: SizeConfig.safeBlockHorizontal * 16.66,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Positioned(
-                              top: mediaQuery.size.width / 3.6,
-                              left: mediaQuery.size.width / 2.73,
-                              child: Transform.rotate(
-                                angle: pi / 20,
-                                child: AppBase
-                                    .truthDareHorns(), // horns vector //angled above DARE
-                              ),
-                            ),
-                            Positioned(
-                              top: mediaQuery.size.width / 3.72,
-                              left: mediaQuery.size.width / 2.58,
-                              child: Text(
-                                'Dare', //custom text style
-                                style: AppText.dareTextStyle(
-                                  mediaQuery: mediaQuery,
-                                  fontSize: mediaQuery.size.width / 5.6,
+                                Positioned(
+                                  top: SizeConfig.blockSizeHorizontal * 20.40,
+                                  left: SizeConfig.blockSizeHorizontal * 34.48,
+                                  child: Text(
+                                    'Or', //custom text style
+                                    style: AppText.orTextStyle(
+                                      
+                                      fontSize: SizeConfig.safeBlockHorizontal * 7.69,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                Positioned(
+                                  top: SizeConfig.blockSizeHorizontal * 27.77,
+                                  left: SizeConfig.blockSizeHorizontal * 36.63,
+                                  child: Transform.rotate(
+                                    angle: pi / 20,
+                                    child: AppBase.truthDareHorns(), // horns vector //angled above DARE
+                                  ),
+                                ),
+                                Positioned(
+                                  top: SizeConfig.blockSizeHorizontal * 26.88,
+                                  left: SizeConfig.blockSizeHorizontal * 38.75,
+                                  child: Text(
+                                    'Dare', //custom text style
+                                    style: AppText.dareTextStyle(
+                                    
+                                      fontSize: SizeConfig.safeBlockHorizontal * 17.85,
+                                      
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: mediaQuery.size.width,
-            height: mediaQuery.size.height / 3.75,
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: mediaQuery.size.width / 6.7),
-                child: BottomsUpButton(
-                  width: mediaQuery.size.width / 5,
-                  height: mediaQuery.size.width / 5,
-                  iconSize: mediaQuery.size.width / 6.5,
-                  shadowColor: AppColors.tDgradientRed,
-                  iconColor: AppColors.truthDareButtonIcon,
-                  function: () {
-                    Navigator.pushNamed(context,
-                        '/truth_dare_mode'); //move to truth dare mode screen
-                  },
+                  ],
                 ),
               ),
-            ),
-          ),
-          Container(
-            width: mediaQuery.size.width,
-            height: mediaQuery.size.height / 3,
-            child: Padding(
-              padding: AppBase.infoSettingsRow(
-                  horizontalP: mediaQuery.size.width / 10,
-                  verticalP: mediaQuery.size.height / 14),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => GameInfo(gameName: "Truth or Dare", gameDescription: "Game Description"),
-                        );
-                        print("Hello");
-                    },
-                    child: AppBase.standartInfoIcon(mediaQuery),
-                  ),
-                  Container(
-                    child: GestureDetector(
-                      onTap: () {
-                        print("Hello");
+              Container(
+                width: SizeConfig.blockSizeHorizontal * 100,
+                height: SizeConfig.blockSizeVertical * 26.66,
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: SizeConfig.blockSizeHorizontal * 14.92
+                    ),
+                    child: BottomsUpButton(
+                      width: SizeConfig.blockSizeHorizontal * 20,
+                      height: SizeConfig.blockSizeHorizontal * 20,
+                      iconSize: SizeConfig.blockSizeHorizontal * 15.38,
+                      shadowColor: AppColors.tDgradientRed,
+                      iconColor: AppColors.truthDareButtonIcon,
+                      function: () {
+                        Navigator.pushNamed(context, '/truth_dare_mode'); //move to truth dare mode screen
                       },
-                      child: AppBase.standartSettingsIcon(mediaQuery),
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+              Container(
+                width: SizeConfig.blockSizeHorizontal * 100,
+                height: SizeConfig.blockSizeVertical * 33.33,
+                child: Padding(
+                  padding: AppBase.infoSettingsRow(
+                      horizontalP: SizeConfig.blockSizeHorizontal * 10,
+                      verticalP: SizeConfig.blockSizeHorizontal * 7.14
+                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => GameInfo(gameName: "Truth or Dare", gameDescription: AppText.truthDareDescription),
+                            );
+                        },
+                        child: AppBase.standartInfoIcon(context),
+                      ),
+                      Container(
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: AppBase.standartSettingsIcon(context),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:bottoms_up/design/apptext.dart';
 import 'package:bottoms_up/design/buttons/truth_dare/truth_dare_direction.dart';
 import 'package:bottoms_up/design/truth_dare/card.dart';
 import 'package:bottoms_up/services/data_request.dart';
+import 'package:bottoms_up/services/exceptions.dart';
 import 'package:bottoms_up/services/truth_dare_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,26 +20,11 @@ class _TruthDareCardsState extends State<TruthDareCards> {
   Future<List<List<String>>> _dbQuestions;
 
   Future<List<List<String>>> _getQuestions() async {
-    var truthDareManager =
+    TruthDareManager truthDareManager =
         Provider.of<TruthDareManager>(context, listen: false);
-    _dbQuestions = DataRequest().getTruthDareData(truthDareManager.questions);
-    return await DataRequest().getTruthDareData(truthDareManager.questions);
-  }
 
-  void _cardContentManagement({int truthOrDare,TruthDareManager manager, AsyncSnapshot<List<List<String>>> snapshot, String currentCardType}) {
-    
-    manager.shuffleAndReturn(snapshot.data[truthOrDare]); //get questions from dare/truth stack
-    manager.setCurrentCardType(currentCardType); //set current card type
-    manager.setCurrentGameType(manager.questions[0]); //set current game mode
-
-    //0 is  truth //1 is dare
-    if (snapshot.data[truthOrDare].length < 1) {
-      manager.drinkResponsibly();
-      _dbQuestions = _getQuestions();
-      setState(
-        () {},
-      );
-    }
+    return CustomException.tryFunction(
+        () => DataRequest().getTruthDareData(truthDareManager.questions));
   }
 
   @override
@@ -50,131 +36,155 @@ class _TruthDareCardsState extends State<TruthDareCards> {
   @override
   Widget build(BuildContext context) {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
-    var truthDareManager = Provider.of<TruthDareManager>(context, listen: false); //change notifier class
+    var truthDareManager = Provider.of<TruthDareManager>(context,
+        listen: false); //change notifier class
 
-    return Scaffold(
-        body: Container(
-      decoration: BoxDecoration(
-        gradient: AppColors.truthDareGradient,
-      ),
-      child: Stack(
-        children: [
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                AppBase.appPopIcon(context, () {
-                  truthDareManager
-                      .updateCurrentQuestionAndCardType(); //default initial question and card type
-                  Navigator.pop(context);
-                }),
-                Container(
-                  width: mediaQuery.size.width,
-                  height: mediaQuery.size.height / 1.7,
-                  child: FutureBuilder<List<List<String>>>(
-                    future: _dbQuestions, //firebase data
-                    builder: (context, snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.none:
-                          return Text("Please check your Internet Connection");
-                          break;
-                        case ConnectionState.active:
-                          return AppBase.loadingLottie;
-                          break;
-                        case ConnectionState.waiting:
-                          return AppBase.loadingLottie;
-                          break;
-                        case ConnectionState.done:
-                          return SwipeStack(
-                            key: _swipeKey,
-                            children: (snapshot.data[0] + snapshot.data[1]).map(
-                              (String question) {
-                                return SwiperItem(
-                                  builder: (SwiperPosition position,
-                                      double progress) {
-                                    return SwipeAppCard(
-                                      borderColor: Colors.black87,
-                                      currentGameType:
-                                          truthDareManager.currentGameType,
-                                      currentQuestion:
-                                          truthDareManager.currentQuestion,
-                                      currentCardType:
-                                          truthDareManager.currentCardType,
-                                      currentCardTypeTextStyle:
-                                          AppText.tDcurrentCardTypeTextStyle(),
-                                      currentQuestionTextStyle:
-                                          AppText.tDcurrentQuestionTextStyle(),
-                                      currentGameTypeTextStyle:
-                                          AppText.tDcurrentGameTypeTextStyle(),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+          body: Container(
+        decoration: BoxDecoration(
+          gradient: AppColors.truthDareGradient,
+        ),
+        child: Stack(
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  AppBase.appPopIcon(context, () {
+                    truthDareManager
+                        .updateCurrentQuestionAndCardType(); //default initial question and card type
+                    Navigator.pop(context);
+                  }, 15.0, 15.0, 15.0),
+                  Container(
+                    width: mediaQuery.size.width,
+                    height: mediaQuery.size.height / 1.7,
+                    child: FutureBuilder<List<List<String>>>(
+                      future: _dbQuestions, //firebase data
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return AppBase.loadingLottie;
+                            break;
+                          default:
+                            if (snapshot
+                                .hasError) //comes from custom throw exception
+                              return Text('${snapshot.error}');
+                            else if (snapshot.data == null) {
+                              return Text('${snapshot.error}');
+                            } else
+                              return SwipeStack(
+                                key: _swipeKey,
+                                children:
+                                    (snapshot.data[0] + snapshot.data[1]).map(
+                                  (String question) {
+                                    return SwiperItem(
+                                      builder: (SwiperPosition position,
+                                          double progress) {
+                                        return SwipeAppCard(
+                                          borderColor: Colors.black87,
+                                          currentGameType:
+                                              truthDareManager.currentGameType,
+                                          currentQuestion:
+                                              truthDareManager.currentQuestion,
+                                          currentCardType:
+                                              truthDareManager.currentCardType,
+                                          currentCardTypeTextStyle: AppText
+                                              .tDcurrentCardTypeTextStyle(),
+                                          currentQuestionTextStyle: AppText
+                                              .tDcurrentQuestionTextStyle(),
+                                          currentGameTypeTextStyle: AppText
+                                              .tDcurrentGameTypeTextStyle(),
+                                        );
+                                      },
                                     );
                                   },
-                                );
-                              },
-                            ).toList(),
-                            visibleCount: 3,
-                            stackFrom: StackFrom.Bottom,
-                            translationInterval: 15,
-                            scaleInterval: 0.05,
-                            animationDuration: Duration(milliseconds: 300),
-                            onEnd:
-                                () {}, //since lis splited into truth dare - this will happen -
-                            onSwipe: (int index, SwiperPosition position) {
-                              if (position == SwiperPosition.Left) {
-                                _cardContentManagement(
-                                  truthOrDare: 0,
-                                  currentCardType: "Dare",
-                                  snapshot: snapshot,
-                                  manager: truthDareManager,
-                                );
-                              }
-                              if (position == SwiperPosition.Right) {
-                                _cardContentManagement(
-                                  truthOrDare: 1,
-                                  currentCardType: "Truth",
-                                  snapshot: snapshot,
-                                  manager: truthDareManager,
-                                );
-                              }
-                            },
-                            onRewind: (int index, SwiperPosition position) {},
-                          ); // snapshot.data
-                          break;
-                        default:
-                          return AppBase.loadingLottie;
-                          break;
-                      }
-                    },
+                                ).toList(),
+                                visibleCount: 3,
+                                stackFrom: StackFrom.Bottom,
+                                translationInterval: 15,
+                                scaleInterval: 0.05,
+                                animationDuration: Duration(milliseconds: 300),
+                                onEnd:
+                                    () {}, //since lis splited into truth dare - this will happen -
+                                onSwipe: (int index, SwiperPosition position) {
+                                  if (position == SwiperPosition.Left) {
+                                    truthDareManager.cardContentManagement(
+                                      truthOrDare: 0,
+                                      currentCardType: "Dare",
+                                      snapshot: snapshot,
+                                      manager: truthDareManager,
+                                      reload: () {
+                                        //   //when run out of questions
+                                        if (snapshot.data[0].length < 1) {
+                                          truthDareManager.drinkResponsibly();
+                                          setState(
+                                            () {
+                                              _dbQuestions = _getQuestions();
+                                            },
+                                          );
+                                        }
+                                      },
+                                    );
+                                  }
+                                  if (position == SwiperPosition.Right) {
+                                    truthDareManager.cardContentManagement(
+                                      truthOrDare: 1,
+                                      currentCardType: "Truth",
+                                      snapshot: snapshot,
+                                      manager: truthDareManager,
+                                      reload: () {
+                                        //   //when run out of questions
+                                        if (snapshot.data[1].length < 1) {
+                                          truthDareManager.drinkResponsibly();
+                                          setState(
+                                            () {
+                                              _dbQuestions = _getQuestions();
+                                            },
+                                          );
+                                        }
+                                      },
+                                    );
+                                  }
+                                },
+                                onRewind:
+                                    (int index, SwiperPosition position) {},
+                              );
+                            break; // snapshot.data;
+                        }
+                      },
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    TruthDareDirection(
-                      icon: Icons.chevron_left,
-                      function: () {
-                        _swipeKey.currentState.swipeLeft();
-                      },
-                    ),
-                    TruthDareDirection(
-                      icon: Icons.chevron_right,
-                      function: () {
-                        _swipeKey.currentState.swipeRight();
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 50.0,
-                ),
-              ],
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TruthDareDirection(
+                        icon: Icons.chevron_left,
+                        function: () {
+                          _swipeKey.currentState.swipeLeft();
+                        },
+                      ),
+                      TruthDareDirection(
+                        icon: Icons.chevron_right,
+                        function: () {
+                          _swipeKey.currentState.swipeRight();
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 50.0,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-     )
+          ],
+        ),
+      )),
     );
   }
 }

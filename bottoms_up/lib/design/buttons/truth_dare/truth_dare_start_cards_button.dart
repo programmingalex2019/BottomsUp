@@ -70,16 +70,15 @@ class _TruthDareStartCardsButtonState extends State<TruthDareStartCardsButton>
               ? Navigator.pushNamed(context, "/truth_dare_cards")
               : null;
         },
-        endIcon: Icon(
-          Icons.play_arrow,
-          color: AppColors.truthDareButtonIcon,
-        ),
         startIcon: Icon(
           Icons.stop,
+          color: AppColors.truthDareButtonIcon,
+        ),
+        endIcon: Icon(
+          Icons.play_arrow,
           color: AppColors.truthDareButtonIcon,
         ),
       ),
     );
   }
 }
-

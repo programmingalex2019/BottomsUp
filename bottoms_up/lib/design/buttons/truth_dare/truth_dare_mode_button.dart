@@ -9,8 +9,8 @@ class TruthModeButton extends StatefulWidget {
 
   const TruthModeButton({
     Key key,
-    @required this.mediaQuery,
-    @required this.text,
+    this.mediaQuery,
+    this.text,
     this.updateState,
   }) : super(key: key);
 

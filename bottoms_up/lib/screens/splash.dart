@@ -11,8 +11,8 @@ String text;
 
 class SplashScreen extends StatefulWidget {
   SplashScreen(
-      {@required String imagePath,
-      @required Widget home,
+      {String imagePath,
+      Widget home,
       Function customFunction,
       int duration,
       Color backgroundColor,
@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       backgroundColor: _backgroundColor,
       body: FadeTransition(
-        opacity: _animation,
+        opacity: _animation as Animation<double>,
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,

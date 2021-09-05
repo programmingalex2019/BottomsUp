@@ -8,7 +8,7 @@
             "name": "bottoms_up",
             "cwd": "bottoms_up",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
         }
     ]
 }
