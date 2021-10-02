@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SpinTheBottleStartButton extends StatefulWidget {
+
   final width;
   final height;
   final iconSize;
@@ -59,7 +60,7 @@ class _SpinTheBottleStartButtonState extends State<SpinTheBottleStartButton>
       corner: FCorner.all(50),
       image: AnimatedIconButton(
         animationController: animationController,
-        size: 35,
+        size: widget.iconSize,
         onPressed: () {
           spinTheBottleManager.moreThanOne
               ? Navigator.pushNamed(context, "/spin_the_bottle_game") //change to spinBottleScreen

@@ -1,9 +1,9 @@
-import 'package:bottoms_up/design/spin_the_bottle/spin_bottle_player.dart';
+import 'package:bottoms_up/services/size_config.dart';
 import 'package:flutter/material.dart';
 
 class SpinBottlePlayerWidget extends StatelessWidget {
 
-  final SpinBottlePlayer player;
+  final String player;
   final Animation animation;
   final VoidCallback onClicked;
 
@@ -15,23 +15,27 @@ class SpinBottlePlayerWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => SizeTransition(
+  Widget build(BuildContext context) {
+
+    SizeConfig().init(context);
+    
+    return SizeTransition(
         sizeFactor: animation,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5),
           child: Container(
-            margin: EdgeInsets.all(8),
+            margin: EdgeInsets.all(SizeConfig.safeBlockHorizontal * 2),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(SizeConfig.safeBlockHorizontal * 3),
               color: Colors.white,
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              padding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5),
               child: ListTile(
-                contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-                title: Text(player.name, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                contentPadding: EdgeInsets.symmetric(vertical: SizeConfig.safeBlockVertical * 1.5, horizontal: SizeConfig.safeBlockHorizontal * 3),
+                title: Text(player, style: TextStyle(fontSize: SizeConfig.safeBlockHorizontal * 5, fontWeight: FontWeight.bold)),
                 trailing: IconButton(
-                  icon: Icon(Icons.delete, color: Colors.red, size: 32),
+                  icon: Icon(Icons.delete, color: Colors.red, size: SizeConfig.safeBlockHorizontal * 7),
                   onPressed: onClicked,
                 ),
               ),
@@ -39,4 +43,6 @@ class SpinBottlePlayerWidget extends StatelessWidget {
           ),
         ),
       );
+
+  }
 }

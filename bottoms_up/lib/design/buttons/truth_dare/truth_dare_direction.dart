@@ -1,4 +1,5 @@
 import 'package:bottoms_up/design/appcolors.dart';
+import 'package:bottoms_up/services/size_config.dart';
 import 'package:flutter/material.dart';
 
 class TruthDareDirection extends StatelessWidget {
@@ -13,18 +14,21 @@ class TruthDareDirection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    SizeConfig().init(context);
+
     return GestureDetector(
       onTap: function,
       child: Container(
-        width: 70.0,
-        height: 70.0,
+        width: SizeConfig.blockSizeHorizontal * 18,
+        height: SizeConfig.blockSizeHorizontal * 18,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(35.0),
-          border: Border.all(width: 3.0, color: Colors.black87),
+          borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 28),
+          border: Border.all(width: SizeConfig.blockSizeHorizontal * 0.8, color: Colors.black87),
         ),
         child: Center(
-          child: Icon(icon, size: 45.0, color: AppColors.tDgradientRed,),
+          child: Icon(icon, size: SizeConfig.blockSizeHorizontal * 11, color: AppColors.tDgradientRed,),
         ),
       ),
     );

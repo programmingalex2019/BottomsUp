@@ -20,19 +20,19 @@ abstract class AppColors {
 
   //heads tails section
   static Color get hTgradientPurple => Colors.deepPurple[800];
-  static Color get hTgradientPink => Colors.purple;
+  static Color get hTgradientPink => Colors.purple[700];
   static Color get hTButtonIcon => Colors.deepPurple[400];
   static Color get hTButtonShadow => Colors.purple[900];
   static Color get hTyellowColor => Color(0xFFffbd59);
 
   static LinearGradient get headsTailsGradient => LinearGradient(
-        begin: Alignment.centerLeft,
-        end: Alignment.topRight,
-        colors: [
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [  
           hTgradientPurple,
           hTgradientPink,
         ],
-        stops: [0.1, 0.77],
+        stops: [0.3, 0.7],
       );
 
   //KingsCup section

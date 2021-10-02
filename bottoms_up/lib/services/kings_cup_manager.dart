@@ -5,7 +5,7 @@ import 'package:playing_cards/playing_cards.dart';
 class KingsCupManager extends ChangeNotifier {
 
 
-  String card = "King's Cup";
+  String card = "King's-Cup";
   String challenge = "Drink Responsibly";
   bool cardViewLoaded = false;
   
@@ -52,7 +52,7 @@ class KingsCupManager extends ChangeNotifier {
     for(int i = 0; i < cards.length; i++){ //52
 
 
-      kingsCards.add(new KingsCard(card: cards[i], challenge: challenges[i].challenge));
+      kingsCards.add(new KingsCard(card: cards[i], challenge: challenges[i].challenge, cardTitle: challenges[i].card));
 
 
       // print("Current card: ${cards[i].suit} ${cards[i].value}");

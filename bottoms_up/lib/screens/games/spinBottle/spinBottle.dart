@@ -3,16 +3,16 @@ import 'package:bottoms_up/design/appcolors.dart';
 import 'package:bottoms_up/design/apptext.dart';
 import 'package:bottoms_up/design/buttons/common_start_button.dart';
 import 'package:bottoms_up/screens/game_info.dart';
+import 'package:bottoms_up/services/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SpinTheBottle extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
-
-    final MediaQueryData mediaQuery = MediaQuery.of(context); //device width
-    print("width ${mediaQuery.size.width}");
-    print("height ${mediaQuery.size.height}");
+    
+    SizeConfig().init(context);
 
     return WillPopScope(
       onWillPop: () async => false,
@@ -24,110 +24,74 @@ class SpinTheBottle extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                width: mediaQuery.size.width,
-                height: mediaQuery.size.height / 2.5,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Center(
-                        child: Container(
-                          width: mediaQuery.size.width,
-                          height: mediaQuery.size.height / 4,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                "SPIN",
-                                style: AppText.spinTheBottleTextStyle(mediaQuery: mediaQuery),
-                              ),
-                              Text(
-                                "THE",
-                                style: AppText.spinTheBottleTextStyle(mediaQuery: mediaQuery),
-                              ),
-                              Text(
-                                "BOTTLE",
-                                style: AppText.spinTheBottleTextStyle(mediaQuery: mediaQuery),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                width: SizeConfig.blockSizeHorizontal * 50,
+                height: SizeConfig.blockSizeVertical * 40,
+                child: SvgPicture.asset(
+                  "assets/images/SVG/spinTheBottle.svg",
+                  semanticsLabel: "spinTheBottle",
                 ),
               ),
               Container(
-                width: mediaQuery.size.width,
-                height: mediaQuery.size.height / 2.5,
+                width: SizeConfig.blockSizeHorizontal * 100,
+                height: SizeConfig.blockSizeVertical * 26.66,
                 child: Center(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(bottom: mediaQuery.size.height  / 15, top: mediaQuery.size.height / 20.5),
-                        child: BottomsUpButton(
-                          width: mediaQuery.size.width / 5,
-                          height: mediaQuery.size.width / 5,
-                          iconSize: mediaQuery.size.width / 6.5,
-                          shadowColor: Colors.black38,
-                          iconColor: AppColors.sBgradientDarkRed,
-                          function: () => Navigator.pushNamed(context, "/spin_the_bottle_players"),
-                        ),
-                      ),
-                      Container(
-                      child: 
-                      Padding(
-                        padding: EdgeInsets.only(top: mediaQuery.size.height / 45.5),
-                        child: SvgPicture.asset(
-                          "assets/images/SVG/bottle.svg",
-                          semanticsLabel: "bottle",
-                          height: mediaQuery.size.height / 6.8,
-                        ),
-                      ),
-                    ),
-                    ],
+                  child: BottomsUpButton(
+                    width: SizeConfig.blockSizeHorizontal * 18,
+                    height: SizeConfig.blockSizeHorizontal * 18,
+                    iconSize: SizeConfig.blockSizeHorizontal * 13.38,
+                    corner: SizeConfig.safeBlockHorizontal * 18,
+                    shadowColor: Colors.black38,
+                    iconColor: AppColors.sBgradientDarkRed,
+                    function: () => Navigator.pushNamed(
+                        context, "/spin_the_bottle_players"),
                   ),
                 ),
               ),
               Container(
-                width: mediaQuery.size.width,
-                height: mediaQuery.size.height / 5,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: AppBase.infoSettingsRow(
-                          horizontalP: mediaQuery.size.width / 10,
-                          verticalP: mediaQuery.size.height / 18.5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          GestureDetector(
+                width: SizeConfig.blockSizeHorizontal * 100,
+                height: SizeConfig.blockSizeVertical * 15,
+                child: SvgPicture.asset(
+                  "assets/images/SVG/bottle.svg",
+                  semanticsLabel: "bottle",
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  width: SizeConfig.blockSizeHorizontal * 100,
+                  height: SizeConfig.blockSizeVertical * 13.33,
+                  child: Padding(
+                    padding: AppBase.infoSettingsRow(
+                      horizontalP: SizeConfig.blockSizeHorizontal * 10,
+                      verticalP: SizeConfig.blockSizeVertical * 5.14,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => GameInfo(
+                                  gameName: "Spin the Bottle",
+                                  gameDescription:
+                                      AppText.headsTailsDescription),
+                            );
+                            print("Hello");
+                          },
+                          child: AppBase.standartInfoIcon(context),
+                        ),
+                        Container(
+                          child: GestureDetector(
                             onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => GameInfo(
-                                    gameName: "Spin the Bottle",
-                                    gameDescription: AppText.headsTailsDescription
-                                    ),
-                              );
                               print("Hello");
                             },
-                            child: AppBase.standartInfoIcon(context),
+                            child: AppBase.standartSettingsIcon(context),
                           ),
-                          Container(
-                            child: GestureDetector(
-                              onTap: () {
-                                print("Hello");
-                              },
-                              child: AppBase.standartSettingsIcon(context),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ],

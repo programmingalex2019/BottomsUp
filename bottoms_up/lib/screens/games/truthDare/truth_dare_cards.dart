@@ -5,6 +5,7 @@ import 'package:bottoms_up/design/buttons/truth_dare/truth_dare_direction.dart';
 import 'package:bottoms_up/design/truth_dare/card.dart';
 import 'package:bottoms_up/services/data_request.dart';
 import 'package:bottoms_up/services/exceptions.dart';
+import 'package:bottoms_up/services/size_config.dart';
 import 'package:bottoms_up/services/truth_dare_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,15 +17,15 @@ class TruthDareCards extends StatefulWidget {
 }
 
 class _TruthDareCardsState extends State<TruthDareCards> {
+
   final GlobalKey<SwipeStackState> _swipeKey = GlobalKey<SwipeStackState>();
   Future<List<List<String>>> _dbQuestions;
 
   Future<List<List<String>>> _getQuestions() async {
-    TruthDareManager truthDareManager =
-        Provider.of<TruthDareManager>(context, listen: false);
+    
+    TruthDareManager truthDareManager = Provider.of<TruthDareManager>(context, listen: false);
+    return CustomException.tryFunction(() => DataRequest().getTruthDareData(truthDareManager.questions));
 
-    return CustomException.tryFunction(
-        () => DataRequest().getTruthDareData(truthDareManager.questions));
   }
 
   @override
@@ -35,15 +36,16 @@ class _TruthDareCardsState extends State<TruthDareCards> {
 
   @override
   Widget build(BuildContext context) {
-    final MediaQueryData mediaQuery = MediaQuery.of(context);
-    var truthDareManager = Provider.of<TruthDareManager>(context,
-        listen: false); //change notifier class
+
+    SizeConfig().init(context);
+
+    TruthDareManager truthDareManager = Provider.of<TruthDareManager>(context, listen: false); //change notifier class
 
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-          body: Container(
-        decoration: BoxDecoration(
+        body: Container(
+          decoration: BoxDecoration(
           gradient: AppColors.truthDareGradient,
         ),
         child: Stack(
@@ -52,58 +54,66 @@ class _TruthDareCardsState extends State<TruthDareCards> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+
                   AppBase.appPopIcon(context, () {
-                    truthDareManager
-                        .updateCurrentQuestionAndCardType(); //default initial question and card type
+
+                    truthDareManager.updateCurrentQuestionAndCardType(); //default initial question and card type
                     Navigator.pop(context);
-                  }, 15.0, 15.0, 15.0),
+
+                  }, SizeConfig.safeBlockHorizontal * 6.66, SizeConfig.safeBlockHorizontal * 6.66, SizeConfig.safeBlockVertical * 2),
+
                   Container(
-                    width: mediaQuery.size.width,
-                    height: mediaQuery.size.height / 1.7,
+
+                    width: SizeConfig.blockSizeHorizontal * 100,
+                    height: SizeConfig.blockSizeVertical * 58.8,
+
                     child: FutureBuilder<List<List<String>>>(
                       future: _dbQuestions, //firebase data
                       builder: (context, snapshot) {
                         switch (snapshot.connectionState) {
+
                           case ConnectionState.waiting:
                             return AppBase.loadingLottie;
                             break;
+
                           default:
-                            if (snapshot
-                                .hasError) //comes from custom throw exception
+
+                            if (snapshot.hasError) //comes from custom throw exception
                               return Text('${snapshot.error}');
+
                             else if (snapshot.data == null) {
                               return Text('${snapshot.error}');
+
                             } else
+
                               return SwipeStack(
                                 key: _swipeKey,
-                                children:
-                                    (snapshot.data[0] + snapshot.data[1]).map(
-                                  (String question) {
+                                children: (snapshot.data[0] + snapshot.data[1])
+                                
+                                .map((String question) {
+
                                     return SwiperItem(
-                                      builder: (SwiperPosition position,
-                                          double progress) {
+                                      builder: (SwiperPosition position, double progress) {
+
                                         return SwipeAppCard(
+
                                           borderColor: Colors.black87,
-                                          currentGameType:
-                                              truthDareManager.currentGameType,
-                                          currentQuestion:
-                                              truthDareManager.currentQuestion,
-                                          currentCardType:
-                                              truthDareManager.currentCardType,
-                                          currentCardTypeTextStyle: AppText
-                                              .tDcurrentCardTypeTextStyle(),
-                                          currentQuestionTextStyle: AppText
-                                              .tDcurrentQuestionTextStyle(),
-                                          currentGameTypeTextStyle: AppText
-                                              .tDcurrentGameTypeTextStyle(),
+                                          currentGameType:truthDareManager.currentGameType,
+                                          currentQuestion:truthDareManager.currentQuestion,
+                                          currentCardType:truthDareManager.currentCardType,
+                                          currentCardTypeTextStyle: AppText.tDcurrentCardTypeTextStyle(context: context),
+                                          currentQuestionTextStyle: AppText.tDcurrentQuestionTextStyle(context: context),
+                                          currentGameTypeTextStyle: AppText.tDcurrentGameTypeTextStyle(context: context),
+                                          
                                         );
                                       },
                                     );
                                   },
                                 ).toList(),
+
                                 visibleCount: 3,
                                 stackFrom: StackFrom.Bottom,
-                                translationInterval: 15,
+                                translationInterval: (SizeConfig.blockSizeVertical * 2.5).round(),
                                 scaleInterval: 0.05,
                                 animationDuration: Duration(milliseconds: 300),
                                 onEnd:
@@ -157,7 +167,7 @@ class _TruthDareCardsState extends State<TruthDareCards> {
                     ),
                   ),
                   SizedBox(
-                    height: 20.0,
+                    height: SizeConfig.blockSizeVertical * 5,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -177,7 +187,7 @@ class _TruthDareCardsState extends State<TruthDareCards> {
                     ],
                   ),
                   SizedBox(
-                    height: 50.0,
+                    height: SizeConfig.blockSizeVertical * 4,
                   ),
                 ],
               ),

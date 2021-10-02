@@ -6,12 +6,13 @@ class BottomsUpButton extends StatelessWidget {
   final width;
   final height;
   final iconSize;
+  final corner;
   final VoidCallback function;
   final Color shadowColor;
   final Color iconColor;
 
   const BottomsUpButton({
-    Key key, this.width, this.iconColor, this.height, this.iconSize, this.function, this.shadowColor,
+    Key key, this.width, this.iconColor, this.height, this.corner, this.iconSize, this.function, this.shadowColor,
   }) : super(key: key);
 
   @override
@@ -26,7 +27,7 @@ class BottomsUpButton extends StatelessWidget {
       shadowOffset: Offset(2, 2),
       highlightColor: Colors.white,
       shadowBlur: 5,
-      corner: FCorner.all(50),
+      corner: FCorner.all(corner),
       image: Container(
         child: Icon(
           Icons.play_arrow_rounded,

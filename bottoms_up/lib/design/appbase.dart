@@ -10,6 +10,7 @@ import 'package:lottie/lottie.dart';
 import 'package:playing_cards/playing_cards.dart';
 
 abstract class AppBase {
+  
   //SplashScreen
   static SplashScreen get splashScreen {
     return SplashScreen(
@@ -38,9 +39,12 @@ abstract class AppBase {
   }
 
   //pop screen button
-  static Padding appPopIcon(BuildContext context, VoidCallback onTap, double left, right, top) =>
-      Padding(
-        padding: EdgeInsets.only(left: left, right: right, top: top),
+  static Padding appPopIcon(BuildContext context, VoidCallback onTap, double left, right, top, [double bottom = 0]) {
+
+      SizeConfig().init(context);
+
+      return Padding(
+        padding: EdgeInsets.only(left: left, right: right, top: top, bottom: bottom),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -48,18 +52,18 @@ abstract class AppBase {
               onTap: onTap,
               child: Icon(
                 Icons.cancel_outlined,
-                size: 40,
+                size: SizeConfig.safeBlockHorizontal * 11,
                 color: Colors.white,
               ),
             ),
             Visibility(
               visible: false,
-              child: Icon(Icons.cancel_outlined, size: 30),
+              child: Icon(Icons.cancel_outlined, size: SizeConfig.safeBlockHorizontal * 3.33),
             ),
           ],
         ),
       );
-
+  }
   //TruthDare Section
   static EdgeInsets tDlogoPadding(BuildContext context) {
 
@@ -68,7 +72,7 @@ abstract class AppBase {
     return EdgeInsets.only(
       left: SizeConfig.blockSizeHorizontal * 10,
       right: SizeConfig.blockSizeHorizontal * 10,
-      top: SizeConfig.blockSizeHorizontal * 4,
+      top: SizeConfig.blockSizeVertical * 4,
     );
   }
 
@@ -83,7 +87,7 @@ abstract class AppBase {
   }
 
   //logos
-  static Widget truthDareHalo([double width]) {
+  static Widget truthDareHalo({double width}) {
     return SvgPicture.asset(
       "assets/images/SVG/Halo.svg",
       semanticsLabel: "Halo",
@@ -92,7 +96,7 @@ abstract class AppBase {
     );
   }
 
-  static Widget truthDareHorns([double width]) {
+  static Widget truthDareHorns({double width}) {
     return SvgPicture.asset(
       "assets/images/SVG/Horns.svg",
       semanticsLabel: "Horns",
@@ -113,42 +117,51 @@ abstract class AppBase {
   }
 
   //HeadsTails Base
-  static EdgeInsets hTlogoPadding(MediaQueryData mediaQuery) {
+  static EdgeInsets hTlogoPadding(BuildContext context) {
+
+    SizeConfig().init(context);
+
     return EdgeInsets.only(
-        left: mediaQuery.size.width / 2.15, top: mediaQuery.size.height / 30.0);
+        left: SizeConfig.blockSizeHorizontal * 46.51, top: SizeConfig.blockSizeVertical *  5.0);
   }
 
-  static Widget flipCoinLogo({MediaQueryData mediaQuery}) {
+  static Widget flipCoinLogo(BuildContext context) {
+    
+    SizeConfig().init(context);
+
     return SvgPicture.asset(
       "assets/images/SVG/coin.svg",
       semanticsLabel: "Coin",
-      width: mediaQuery.size.width / 6.5,
+      width: SizeConfig.blockSizeHorizontal * 15.38,
       color: Color(0xffffde5a),
     );
   }
 
-  static Widget tossCoin(
-      {MediaQueryData mediaQuery,
-      Animation<double> controller,
-      HeadsTailsManager headsTailsManager}) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Lottie.asset(
-          'assets/lottiefiles/flip_coin.json',
-          width: mediaQuery.size.height / 2.7,
-          controller: controller,
-        ),
-        Material(
-          child: Text(
-            headsTailsManager.defaultCointText,
-            style: AppText.headTailsCoinTextStyle(
-              fontSize: mediaQuery.size.height / 28,
-            ),
+  static Widget tossCoin({BuildContext context, Animation<double> controller, HeadsTailsManager headsTailsManager}) {
+
+    SizeConfig().init(context);
+
+    return Padding(
+      padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 1),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Lottie.asset(
+            'assets/lottiefiles/flip_coin.json',
+            width: SizeConfig.safeBlockHorizontal * 72,
+            controller: controller,
           ),
-          color: Colors.black.withOpacity(0),
-        ),
-      ],
+          Material(
+            child: Text(
+              headsTailsManager.defaultCointText,
+              style: AppText.headTailsCoinTextStyle(
+                fontSize: SizeConfig.safeBlockHorizontal * 7,
+              ),
+            ),
+            color: Colors.black.withOpacity(0),
+          ),
+        ],
+      ),
     );
   }
 

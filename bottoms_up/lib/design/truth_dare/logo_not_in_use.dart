@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math';
 
+
+
+// NOT IN USE 
+
 class TruthDareLogo extends StatelessWidget {
 
   final double width;

@@ -1,0 +1,302 @@
+[
+
+    {
+        "key": 1,
+        "card": "Waterfall",
+        "challenge": "Start drinking at the same time as the person to your left. Don't stop until they do."
+    },
+    {
+        "key": 2,
+        "card": "King of Cups",
+        "challenge": "Pour some of your drink in the center cup."
+    },
+    {
+        "key": 3,
+        "card": "Questions",
+        "challenge": "Ask someone a questions. That persons then asks someone else a question. The first person to fail drinks."
+    },
+    {
+        "key": 4,
+        "card": "Never Have I Ever",
+        "challenge": "Play never have i ever"
+    },
+    {
+        "key": 5,
+        "card": "Categories",
+        "challenge": "Choose a category of things. The person to your right names something in that category. The first person to fail drinks."
+    },
+
+    {
+        "key": 6,
+        "card": "Rhyme",
+        "challenge": "Say a word. The person to your right says a word that rhymes. The first person to fail drinks."
+    },
+
+    {
+        "key": 7,
+        "card": "Mate",
+        "challenge": "Choose someone to be your mate. Any time you drink, they drink."
+    },
+
+    {
+        "key": 8,
+        "card": "Heaven",
+        "challenge": "Raise your hand to heaven. The last person to do so drinks."
+    },
+
+    {
+        "key": 9,
+        "card": "Chicks",
+        "challenge": "Girls drink."
+    },
+
+    {
+        "key": 10,
+        "card": "Guys",
+        "challenge": "Guys drink."
+    },
+    {
+        "key": 11,
+        "card": "Floor",
+        "challenge": "The last person to touch the floor drinks."
+    },
+
+    {
+        "key": 12,
+        "card": "Me",
+        "challenge": "You drink"
+    },
+    {
+        "key": 13,
+        "card": "You",
+        "challenge": "Choose someone to drink"
+    },
+
+
+    {
+        "key": 14,
+        "card": "Waterfall",
+        "challenge": "Start drinking at the same time as the person to your left. Don't stop until they do."
+    },
+    {
+        "key": 15,
+        "card": "King of Cups",
+        "challenge": "Pour some of your drink in the center cup."
+    },
+    {
+        "key": 16,
+        "card": "Questions",
+        "challenge": "Ask someone a questions. That persons then asks someone else a question. The first person to fail drinks."
+    },
+    {
+        "key": 17,
+        "card": "Never Have I Ever",
+        "challenge": "Play never have i ever"
+    },
+    {
+        "key": 18,
+        "card": "Categories",
+        "challenge": "Choose a category of things. The person to your right names something in that category. The first person to fail drinks."
+    },
+
+    {
+        "key": 19,
+        "card": "Rhyme",
+        "challenge": "Say a word. The person to your right says a word that rhymes. The first person to fail drinks."
+    },
+
+    {
+        "key": 20,
+        "card": "Mate",
+        "challenge": "Choose someone to be your mate. Any time you drink, they drink."
+    },
+
+    {
+        "key": 21,
+        "card": "Heaven",
+        "challenge": "Raise your hand to heaven. The last person to do so drinks."
+    },
+
+    {
+        "key": 22,
+        "card": "Chicks",
+        "challenge": "Girls drink."
+    },
+
+    {
+        "key": 23,
+        "card": "Guys",
+        "challenge": "Guys drink."
+    },
+    {
+        "key": 24,
+        "card": "Floor",
+        "challenge": "The last person to touch the floor drinks."
+    },
+
+    {
+        "key": 25,
+        "card": "Me",
+        "challenge": "You drink"
+    },
+    {
+        "key": 26,
+        "card": "You",
+        "challenge": "Choose someone to drink"
+    },
+
+
+
+    {
+        "key": 27,
+        "card": "Waterfall",
+        "challenge": "Start drinking at the same time as the person to your left. Don't stop until they do."
+    },
+    {
+        "key": 28,
+        "card": "King of Cups",
+        "challenge": "Pour some of your drink in the center cup."
+    },
+    {
+        "key": 29,
+        "card": "Questions",
+        "challenge": "Ask someone a questions. That persons then asks someone else a question. The first person to fail drinks."
+    },
+    {
+        "key": 30,
+        "card": "Never Have I Ever",
+        "challenge": "Play never have i ever"
+    },
+    {
+        "key": 31,
+        "card": "Categories",
+        "challenge": "Choose a category of things. The person to your right names something in that category. The first person to fail drinks."
+    },
+
+    {
+        "key": 32,
+        "card": "Rhyme",
+        "challenge": "Say a word. The person to your right says a word that rhymes. The first person to fail drinks."
+    },
+
+    {
+        "key": 33,
+        "card": "Mate",
+        "challenge": "Choose someone to be your mate. Any time you drink, they drink."
+    },
+
+    {
+        "key": 34,
+        "card": "Heaven",
+        "challenge": "Raise your hand to heaven. The last person to do so drinks."
+    },
+
+    {
+        "key": 35,
+        "card": "Chicks",
+        "challenge": "Girls drink."
+    },
+
+    {
+        "key": 36,
+        "card": "Guys",
+        "challenge": "Guys drink."
+    },
+    {
+        "key": 37,
+        "card": "Floor",
+        "challenge": "The last person to touch the floor drinks."
+    },
+
+    {
+        "key": 38,
+        "card": "Me",
+        "challenge": "You drink"
+    },
+    {
+        "key": 39,
+        "card": "You",
+        "challenge": "Choose someone to drink"
+    },
+
+
+
+    {
+        "key": 40,
+        "card": "Waterfall",
+        "challenge": "Start drinking at the same time as the person to your left. Don't stop until they do."
+    },
+    {
+        "key": 41,
+        "card": "King of Cups",
+        "challenge": "Pour some of your drink in the center cup."
+    },
+    {
+        "key": 42,
+        "card": "Questions",
+        "challenge": "Ask someone a questions. That persons then asks someone else a question. The first person to fail drinks."
+    },
+    {
+        "key": 43,
+        "card": "Never Have I Ever",
+        "challenge": "Play never have i ever"
+    },
+    {
+        "key": 44,
+        "card": "Categories",
+        "challenge": "Choose a category of things. The person to your right names something in that category. The first person to fail drinks."
+    },
+
+    {
+        "key": 45,
+        "card": "Rhyme",
+        "challenge": "Say a word. The person to your right says a word that rhymes. The first person to fail drinks."
+    },
+
+    {
+        "key": 46,
+        "card": "Mate",
+        "challenge": "Choose someone to be your mate. Any time you drink, they drink."
+    },
+
+    {
+        "key": 47,
+        "card": "Heaven",
+        "challenge": "Raise your hand to heaven. The last person to do so drinks."
+    },
+
+    {
+        "key": 48,
+        "card": "Chicks",
+        "challenge": "Girls drink."
+    },
+
+    {
+        "key": 49,
+        "card": "Guys",
+        "challenge": "Guys drink."
+    },
+    {
+        "key": 50,
+        "card": "Floor",
+        "challenge": "The last person to touch the floor drinks."
+    },
+
+    {
+        "key": 51,
+        "card": "Me",
+        "challenge": "You drink"
+    },
+    {
+        "key": 52,
+        "card": "You",
+        "challenge": "Choose someone to drink"
+    }
+
+
+
+
+
+
+
+]

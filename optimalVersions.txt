@@ -1,0 +1,21 @@
+  lottie: ^0.7.0+1
+  cupertino_icons: ^1.0.0
+  google_fonts: ^1.1.2
+  liquid_progress_indicator: ^0.3.2
+  liquid_swipe: ^2.0.0
+  diagonal: ^1.0.1
+  fbutton: ^2.0.1
+  swipe_stack: ^1.0.0
+  flutter_svg: ^0.19.3
+  playing_cards: ^0.1.5+6
+  #alert
+  custom_dialog: ^0.0.2
+  #firebase
+  firebase_core: ^0.7.0
+  cloud_firestore: ^0.16.0+1
+  provider: ^5.0.0
+  #icons
+  animated_icon_button: ^0.3.0
+  auto_size_text: ^2.1.0
+  #gradients
+  flutter_gradient_colors: 1.0.0

@@ -43,13 +43,14 @@ class HeadsTailsManager extends ChangeNotifier {
     //generate random index
     Random random = new Random();
     int which = random.nextInt(typeQuestions.length); //range is the list size
-    print(which);
 
     //assign currentQuestion to be...
     currentQuestion = typeQuestions[which];
 
     //avoid repetition mechanics 
     typeQuestions.removeAt(which);
+
+    print(typeQuestions.length);
 
     notifyListeners();
   }

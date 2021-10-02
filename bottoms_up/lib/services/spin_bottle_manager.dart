@@ -1,37 +1,42 @@
 import 'dart:math';
-
-import 'package:bottoms_up/design/spin_the_bottle/spin_bottle_player.dart';
-import 'package:bottoms_up/services/data_request.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 
 class SpinTheBottleManager extends ChangeNotifier {
 
-
-  List<SpinBottlePlayer> players = [];
+  List<String> players = [];
   bool moreThanOne = false;
   bool showedInitialPopUp = false;
-  SpinBottlePlayer challenger;
-  SpinBottlePlayer challengee; 
-  String challenge = "";
+  String challenger;
+  String challengee;
+  String challenge = "Initial";
 
-  void addPlayer(SpinBottlePlayer spinBottlePlayer, int index){
+  Map<String, Set<List<String>>> tupples = Map();
+
+  //add player to list of players
+  void addPlayer(String spinBottlePlayer, int index) {
+
     players.insert(index, spinBottlePlayer);
-    if(players.length >= 2) moreThanOne = true;
+    if (players.length >= 2) moreThanOne = true;
     notifyListeners();
+
   }
 
-  SpinBottlePlayer removePlayer(int index){
-    SpinBottlePlayer spinTheBottlePlayer = players.removeAt(index);
-    if(players.length < 2) moreThanOne = false;
-    for(SpinBottlePlayer i in players) print(i.name);
+  //remove player from list of players
+  String removePlayer(int index) {
+
+    String spinTheBottlePlayer = players.removeAt(index);
+    if (players.length < 2) moreThanOne = false;
     notifyListeners();
     return spinTheBottlePlayer;
+
   }
 
+  //check whether player valid for the list 
   String validator(String input) {
 
-    for(SpinBottlePlayer i in players){
-      if(i.name.compareTo(input) == 0){
+    for (String i in players) {
+      if (i.compareTo(input) == 0) {
         return "This name has been already selected";
       }
     }
@@ -40,83 +45,76 @@ class SpinTheBottleManager extends ChangeNotifier {
       return "Please enter a name";
     } else if (input.length > 12) {
       return "The name must be less than 12 characters";
-    } 
+    }
+
     return null;
+
   }
 
-  void resetSpinBottlePlayers(){
+  //if exited players scren
+  void resetSpinBottlePlayers() {
     players = [];
     moreThanOne = false;
+    notifyListeners();
   }
 
-  void validPlayerSize(){
-    if(players.length > 1){
+  void validPlayerSize() {
+    if (players.length > 1) {
       moreThanOne = false;
       notifyListeners();
     }
   }
 
-  //spinBottleGame
-  void showedInitialPopUpF(){
+  //used after runned out of combinations 
+  void resetShowedInitialPopUp(){
+    showedInitialPopUp = false;
+  }
+
+  //after first pop shown
+  void showedInitialPopUpF() {
     showedInitialPopUp = true;
     notifyListeners();
   }
-  void resetSpinBottleGame(){
+
+  //when exited spin the bottle game
+  void resetSpinBottleGame() {
     showedInitialPopUp = false;
     challenger = null;
     challengee = null;
     notifyListeners();
   }
 
-  //get randomPlayers
-  void getInitialRandomPlayer(){
-    players.shuffle(); //shuffle deck
-    //generate random index
-    Random random = new Random();
 
-    int challengerI = random.nextInt(players.length); //range is the list size
+  //get Combinations 
+  void getChallenge(Map<String, Set<List<String>>> challenges) {
 
-    challenger = players[challengerI];
+    //get random key and assign it's name to current challenge 
+    String key = challenges.keys.elementAt( Random().nextInt(challenges.length) ); 
+    challenge = key; //assign to challenge
 
-    notifyListeners();
-  }
+    // int 
+    int challengerI;
+    int challengeeI;
 
-  void getRandomPlayers(){
+    do {
+      challengerI = Random().nextInt(challenges[key].last.length);
+      challengeeI = Random().nextInt(challenges[key].last.length);
+    } while (challengeeI == challengerI);
 
-    players.shuffle(); //shuffle deck
-    //generate random index
-    Random random = new Random();
-    
-    int challengerI = random.nextInt(players.length); //range is the list size
-    int challengeeI = challengerI;
+    //assign player name according to key 
+    challenger = challenges[key].last[challengerI]; 
+    challengee = challenges[key].last[challengeeI]; 
 
+    //a way to pop list from set
+    challenges[key].last.clear();
+    challenges[key].removeWhere((element) => element.isEmpty);
 
-    do{
-
-      challengeeI = random.nextInt(players.length);
-
-    } while(challengeeI == challengerI);
-
-
-    challenger = players[challengerI];
-    challengee = players[challengeeI];
+    //remove combination if no more combinations in a set
+    if(challenges[key].length == 0) {
+      challenges.remove(key);
+    }
 
     notifyListeners();
 
   }
-  
-  //getData 
-  void getChallenge(List<String> challenges){
-
-    challenges.shuffle(); //never start with same challenge
-
-    challenge = challenges.last;
-
-    challenges.removeLast(); //remove / will be reloaded later
-
-    notifyListeners();
-
-  }
-
-
 }

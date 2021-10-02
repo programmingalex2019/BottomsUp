@@ -4,9 +4,11 @@ import 'package:bottoms_up/services/heads_tails_manager.dart';
 import 'package:bottoms_up/services/kings_cup_manager.dart';
 import 'package:bottoms_up/services/routes.dart';
 import 'package:bottoms_up/services/spin_bottle_manager.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
+// import 'package:device_preview/device_preview.dart';
 
 import 'package:provider/provider.dart';
 
@@ -39,6 +41,7 @@ class PlatformApp extends StatelessWidget {
     } else {
       //Android
       return MaterialApp(
+        builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
         home: Home(),
         onGenerateRoute: Routes.materialPageRoutes,

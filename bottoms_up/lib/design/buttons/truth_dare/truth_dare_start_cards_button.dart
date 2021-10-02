@@ -9,6 +9,7 @@ class TruthDareStartCardsButton extends StatefulWidget {
   final width;
   final height;
   final iconSize;
+  final corner;
   final VoidCallback function;
 
   const TruthDareStartCardsButton({
@@ -16,6 +17,7 @@ class TruthDareStartCardsButton extends StatefulWidget {
     this.width,
     this.height,
     this.iconSize,
+    this.corner,
     this.function,
   }) : super(key: key);
 
@@ -61,22 +63,24 @@ class _TruthDareStartCardsButtonState extends State<TruthDareStartCardsButton>
       shadowOffset: Offset(2, 2),
       highlightColor: Colors.white,
       shadowBlur: 5,
-      corner: FCorner.all(50),
-      image: AnimatedIconButton(
-        animationController: animationController,
-        size: 35,
-        onPressed: () {
-          truthDareManager.oneTrue
-              ? Navigator.pushNamed(context, "/truth_dare_cards")
-              : null;
-        },
-        startIcon: Icon(
-          Icons.stop,
-          color: AppColors.truthDareButtonIcon,
-        ),
-        endIcon: Icon(
-          Icons.play_arrow,
-          color: AppColors.truthDareButtonIcon,
+      corner: FCorner.all(widget.corner),
+      image: Center(
+        child: AnimatedIconButton(
+          animationController: animationController,
+          size: widget.iconSize,
+          onPressed: () {
+            truthDareManager.oneTrue
+                ? Navigator.pushNamed(context, "/truth_dare_cards")
+                : null;
+          },
+          startIcon: Icon(
+            Icons.stop,
+            color: AppColors.truthDareButtonIcon,
+          ),
+          endIcon: Icon(
+            Icons.play_arrow,
+            color: AppColors.truthDareButtonIcon,
+          ),
         ),
       ),
     );

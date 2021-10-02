@@ -1,5 +1,7 @@
 import 'package:bottoms_up/screens/games/kindsCup/kings_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:trotter/trotter.dart';
+
 
 class DataRequest {
   
@@ -84,6 +86,7 @@ class DataRequest {
 
     // List<String> cardChallenges = []; //list of strings
 
+
     QuerySnapshot data = await _firestore
         .collection("users/kings-cup/kings-cup")
         .get(GetOptions(source: Source.server));
@@ -93,6 +96,7 @@ class DataRequest {
 
     data.docs.forEach((element) {
       //each document
+      
 
       KingsCardData kingsCardDataObject = KingsCardData.fromJson(element.data());
 
@@ -100,8 +104,9 @@ class DataRequest {
 
     });
 
+
     kingsCardDataList.sort((b, a) => a.key.compareTo(b.key)); //sort descending
-    
+
     //give a second for the animation
     await Future.delayed(Duration(seconds: 1));
 
@@ -110,26 +115,57 @@ class DataRequest {
 
   }
 
-  Future<List<String>> getSpinTheBottleData() async {
+  //WARNING: relies 
+  Future<Map<String, Set<List<String>>>> getSpinTheBottleData(List<String> players) async {
 
     List<String> spinTheBottleQuestionsList = [];
 
-    //firestore
-    var spinTheBottleQuestions = await _firestore
-        .collection("users/spin-bottle/spin-bottle")
-        .get(GetOptions(source: Source.server));
+    Map<String, Set<List<String>>> combinations;
 
+    //firestore
+    try{
+      var spinTheBottleQuestions = await _firestore
+          .collection("users/spin-bottle/spin-bottle")
+          .get(GetOptions(source: Source.server));
+      
     //string from questions key
-    spinTheBottleQuestions.docs.forEach((element) {
-      for (String i in element.data()["questions"]) {
-        spinTheBottleQuestionsList.add(i); //add all data (strings)
-      }
-    });
+      spinTheBottleQuestions.docs.forEach((element) {
+        for (String i in element.data()["questions"]) {
+          spinTheBottleQuestionsList.add(i); //add all data (strings)
+        }
+      });
+
+
+      spinTheBottleQuestionsList.shuffle();
+      //returns a map of keys for each question and an empty set for each
+      combinations = Map.fromIterable(spinTheBottleQuestionsList, key: (item) => item, value: (item) => {});
+      //for each key add possible combinations -> will be shuffled after 
+      combinations.forEach((key, value) {
+        
+        final permutations = players, perms = Permutations(2, players);
+
+        for (final permutation in perms()) {
+
+          // permutation.shuffle();
+          combinations[key].add(permutation);
+          
+        }
+
+        players.shuffle();
+
+      });
+
+  
+
+    }catch(e){
+      print(e.toString());
+    }
+    
 
     //give a second for the animation
     await Future.delayed(Duration(seconds: 1));
 
-    return spinTheBottleQuestionsList;
+    return combinations;
   }
 
 }

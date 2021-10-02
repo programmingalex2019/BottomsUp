@@ -1,10 +1,10 @@
 import 'package:bottoms_up/design/appcolors.dart';
+import 'package:bottoms_up/services/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppText {
-
 
   static String get truthDareDescription => " but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
   static String get headsTailsDescription => " but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
@@ -75,29 +75,38 @@ abstract class AppText {
       );
 
   //Styles of the card texts truth or dare game
-  static TextStyle tDcurrentCardTypeTextStyle(
-          {MediaQueryData mediaQuery, double fontSize}) =>
-      TextStyle(
-        color: AppColors.tDgradientRed,
-        fontFamily: "Bukhari",
-        fontSize: 40,
-      );
+  static TextStyle tDcurrentCardTypeTextStyle({BuildContext context}) {
 
-  static TextStyle tDcurrentQuestionTextStyle(
-          {MediaQueryData mediaQuery, double fontSize}) =>
-      TextStyle(
-        fontFamily: "Oswald",
-        fontSize: 25.0,
-      );
+    SizeConfig().init(context);
 
-  static TextStyle tDcurrentGameTypeTextStyle(
-          {MediaQueryData mediaQuery, double fontSize}) =>
-      TextStyle(
-        fontSize: 14.0,
-        fontFamily: "Bukhari",
-        letterSpacing: 1.5,
-        color: AppColors.tDgradientRed,
-      );
+    return TextStyle(
+      color: AppColors.tDgradientRed,
+      fontFamily: "Bukhari",
+      fontSize: SizeConfig.safeBlockHorizontal * 10,
+    );
+  }
+
+  static TextStyle tDcurrentQuestionTextStyle({BuildContext context}) {
+
+    SizeConfig().init(context);
+
+    return TextStyle(
+      fontFamily: "Oswald",
+      fontSize: SizeConfig.safeBlockHorizontal * 6.5,
+    );
+  }
+
+  static TextStyle tDcurrentGameTypeTextStyle({BuildContext context}) {
+
+    SizeConfig().init(context);
+    
+    return TextStyle(
+      fontSize: SizeConfig.safeBlockHorizontal * 5,
+      fontFamily: "Bukhari",
+      letterSpacing: 1.5,
+      color: AppColors.tDgradientRed,
+    );
+  }
 
   //Heads Or Tails Text
   static headsTailsTitleText({String text, double size}) => Text(
@@ -135,6 +144,20 @@ abstract class AppText {
         ],
       );
 
+  static TextStyle headsTailsCardTextStyleContent({double fontSize, Color color}) =>
+      TextStyle(
+        fontSize: fontSize,
+        fontFamily: 'Oswald',
+        letterSpacing: 1.5,
+        color: color,
+        shadows: <Shadow>[
+          // Shadow(
+          //   offset: Offset(1, 1),
+          //   color: Colors.black.withOpacity(0.8),
+          // ),
+        ],
+      );  
+
   static TextStyle headTailsCoinTextStyle({MediaQueryData mediaQuery, double fontSize}) =>
       TextStyle(
         fontSize: fontSize,
@@ -156,16 +179,24 @@ abstract class AppText {
 
 
   //Kings Cup Text
-  static TextStyle kingsCupTextStyle({MediaQueryData mediaQuery}) => TextStyle(
-        fontSize: mediaQuery.size.height / 14,
+  static TextStyle kingsCupTextStyle({BuildContext context}) {
+
+    SizeConfig().init(context);
+    
+    return TextStyle(
+        fontSize: SizeConfig.safeBlockHorizontal * 15,
         fontFamily: "Monoton",
-        height: 1,
         color: Colors.white,
       );
+  }
 
   //Spin The Bottle Text
-  static TextStyle spinTheBottleTextStyle({MediaQueryData mediaQuery}) => TextStyle(
-        fontSize: mediaQuery.size.height / 15,
+  static TextStyle spinTheBottleTextStyle({BuildContext context}) {
+
+    SizeConfig().init(context);
+    
+    return TextStyle(
+        fontSize: SizeConfig.safeBlockVertical * 6.66,
         fontFamily: "Tomorrow",
         fontWeight: FontWeight.bold,
         height: 1,
@@ -183,5 +214,5 @@ abstract class AppText {
           ),
         ],
       );
-
+    }
 }

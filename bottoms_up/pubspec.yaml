@@ -9,14 +9,21 @@ environment:
   sdk: '>=2.2.0 <3.0.0'
 
 dependencies:
+
+  collection: any
+
   flutter:
     sdk: flutter
 
+  trotter: ^1.1.0
+
+  device_preview: ^0.6.2-beta
+    
   lottie: ^0.7.0+1
   cupertino_icons: ^1.0.0
   google_fonts: ^1.1.2
   liquid_progress_indicator: ^0.3.2
-  liquid_swipe: ^2.0.0
+  liquid_swipe: ^1.4.2
   diagonal: ^1.0.1
   fbutton: ^2.0.1
   swipe_stack: ^1.0.0
@@ -27,7 +34,7 @@ dependencies:
   #firebase
   firebase_core: ^0.7.0
   cloud_firestore: ^0.16.0+1
-  provider: ^5.0.0
+  provider: ^4.3.2
   #icons
   animated_icon_button: ^0.3.0
   auto_size_text: ^2.1.0
@@ -59,6 +66,12 @@ flutter:
     - assets/lottiefiles/beerLotie.json
     - assets/lottiefiles/flip_coin.json
     
+    - assets/images/SVG/truthDareLogo.svg
+    - assets/images/SVG/headTailsLogo.svg
+    - assets/images/SVG/kingsCupLogo.svg
+    - assets/images/SVG/spinTheBottle.svg
+    - assets/images/SVG/addPlayers.svg
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

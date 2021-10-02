@@ -1,0 +1,70 @@
+string = """
+kisses (cheek)
+slaps (face)
+spits on
+licks (ear)
+kisses (lips)
+dirty talks
+gives lapdance to
+makeout with
+licks (nipple)
+licks (armpit)
+licks (toe)
+whips
+bites
+twists nipple
+bites (ear)
+sucks (finger)
+rap battles
+serenades 
+baby birds
+smells (armpit)
+calls (ex)
+calls (mom)
+calls (dad)
+calls (sibling)
+tickles
+roasts
+touches (ass)
+massages (1 minute)
+kisses (neck)
+feed
+draws on
+dry humps
+text somone on there phone
+slaps (ass)
+grabs (boobs/crotch)
+body shots
+have a shotgun race
+staring contest
+stripping contest
+push up contest
+wet willies
+chokes
+spits(in mouth)
+dance battle
+twerks on
+sits on lap until next round
+punches (arm)
+motorboats
+gives hickey to
+touch other player while blind folded
+texts (mom)
+texts (dad)
+texts (crush)
+texts (mom)
+texts (sibling)
+"""
+json = string.split("\n")[1:-1]
+print(json)
+
+new_string = "['kisses (cheek)', 'slaps (face)', 'spits on', 'licks (ear)', 'kisses (lips)', 'dirty talks', 'gives lapdance to', 'makeout with', 'licks (nipple)', 'licks (armpit)', 'licks (toe)', 'whips', 'bites', 'twists nipple', 'bites (ear)', 'sucks (finger)', 'rap battles', 'serenades ', 'baby birds', 'smells (armpit)', 'calls (ex)', 'calls (mom)', 'calls (dad)', 'calls (sibling)', 'tickles', 'roasts', 'touches (ass)', 'massages (1 minute)', 'kisses (neck)', 'feed', 'draws on', 'dry humps', 'text somone on there phone', 'slaps (ass)', 'grabs (boobs/crotch)', 'body shots', 'have a shotgun race', 'staring contest', 'stripping contest', 'push up contest', 'wet willies', 'chokes', 'spits(in mouth)', 'dance battle', 'twerks on', 'sits on lap until next round', 'punches (arm)', 'motorboats', 'gives hickey to', 'touch other player while blind folded', 'texts (mom)', 'texts (dad)', 'texts (crush)', 'texts (mom)', 'texts (sibling)']"
+
+new_list = []
+for i, character in enumerate(new_string):
+  if character == "'" and (new_string[i-1] in " [" or new_string[i+1] in ",]"):
+    new_list.append('"')
+  else:
+    new_list.append(character)
+
+print("".join(new_list))

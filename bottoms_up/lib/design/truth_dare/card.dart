@@ -1,10 +1,8 @@
-import 'package:bottoms_up/design/appcolors.dart';
+import 'package:bottoms_up/services/size_config.dart';
 import 'package:flutter/material.dart';
 
 class SwipeAppCard extends StatelessWidget {
 
-
-  
   //colors
   final Color borderColor;
   //Content
@@ -31,24 +29,27 @@ class SwipeAppCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    SizeConfig().init(context);
+
     return Material(
       elevation: 4,
       borderRadius: BorderRadius.all(
-        Radius.circular(6),
+        Radius.circular(SizeConfig.blockSizeHorizontal * 3),
       ),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          border: Border.all(width: 7.0, color: borderColor),
+          border: Border.all(width: SizeConfig.blockSizeHorizontal * 2, color: borderColor),
           borderRadius: BorderRadius.all(
-            Radius.circular(6),
+            Radius.circular(SizeConfig.blockSizeHorizontal * 1),
           ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 13.0),
+              padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 13),
               child: Text(
                 currentCardType ?? "Some Type",
                 textAlign: TextAlign.center,
@@ -56,8 +57,8 @@ class SwipeAppCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12.0,
+              padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.blockSizeHorizontal * 8,
               ),
               child: Text(
                 currentQuestion ?? "Some Question",
@@ -66,8 +67,8 @@ class SwipeAppCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 18.0,
+              padding: EdgeInsets.only(
+                left: SizeConfig.blockSizeHorizontal * 5,
               ),
               child: Row(
                 children: [

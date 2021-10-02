@@ -1,12 +1,11 @@
 import 'package:bottoms_up/design/appbase.dart';
 import 'package:bottoms_up/design/appcolors.dart';
-import 'package:bottoms_up/design/apptext.dart';
 import 'package:bottoms_up/design/buttons/truth_dare/truth_dare_mode_button.dart';
 import 'package:bottoms_up/design/buttons/truth_dare/truth_dare_start_cards_button.dart';
+import 'package:bottoms_up/services/size_config.dart';
 import 'package:bottoms_up/services/truth_dare_manager.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class TruthDareMode extends StatefulWidget {
@@ -14,20 +13,22 @@ class TruthDareMode extends StatefulWidget {
   _TruthDareModeState createState() => _TruthDareModeState();
 }
 
-class _TruthDareModeState extends State<TruthDareMode>
-    with SingleTickerProviderStateMixin {
+class _TruthDareModeState extends State<TruthDareMode> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    var truthDareManager =
-        Provider.of<TruthDareManager>(context, listen: false);
+
+    TruthDareManager truthDareManager = Provider.of<TruthDareManager>(context, listen: false);
+
+    SizeConfig().init(context);
 
     final MediaQueryData mediaQuery = MediaQuery.of(context);
+    
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
         body: Container(
-          width: mediaQuery.size.width,
-          height: mediaQuery.size.height,
+          width: SizeConfig.blockSizeHorizontal * 100,
+          height: SizeConfig.blockSizeVertical * 100,
           decoration: BoxDecoration(
             gradient: AppColors.truthDareGradient,
           ),
@@ -37,78 +38,25 @@ class _TruthDareModeState extends State<TruthDareMode>
               children: [
                 AppBase.appPopIcon(context, () {
                   truthDareManager.resetAllType(); //makes all modes disabled so the animations of buttion works properly
-                  truthDareManager.updateQuestions(); 
+                  truthDareManager.updateQuestions();
                   Navigator.pop(context);
-                }, 15.0, 15.0, 15.0),
+                }, SizeConfig.safeBlockHorizontal * 6.66, SizeConfig.safeBlockHorizontal * 6.66, SizeConfig.safeBlockVertical * 2),
                 Container(
-                  width: (mediaQuery.size.width) / 1.5,
-                  height: (mediaQuery.size.height / 6) / 0.8,
-                  child: Transform.rotate(
-                    angle: -pi / 18,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          left: (mediaQuery.size.width / 15) / 1.5,
-                          child: Transform.rotate(
-                              angle: pi / 13,
-                              child: AppBase.truthDareHalo(
-                                mediaQuery.size.width / 11.0,
-                              ) //optional width
-
-                              ),
-                        ),
-                        Positioned(
-                          left: (mediaQuery.size.width / 10) / 1.5,
-                          top: (mediaQuery.size.height / 90) / 1.5,
-                          child: Container(
-                            child: Text(
-                              'TRUTH',
-                              style: AppText.truthTextStyle(
-                                fontSize: (mediaQuery.size.width / 6.0) / 1.5,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: (mediaQuery.size.width / 4.9) / 1.5,
-                          left: (mediaQuery.size.width / 2.6) / 1.5,
-                          child: Text(
-                            'Or',
-                            style: AppText.orTextStyle(
-                              fontSize: 32,
-                            ), 
-                          ),
-                        ),
-                        Positioned(
-                          top: (mediaQuery.size.width / 3.10) / 1.5,
-                          left: (mediaQuery.size.width / 2.23) / 1.5,
-                          child: Transform.rotate(
-                              angle: pi / 20,
-                              child: AppBase.truthDareHorns(
-                                mediaQuery.size.width / 12,
-                              ) //optional width
-                              ),
-                        ),
-                        Positioned(
-                          top: (mediaQuery.size.width / 3.15) / 1.5,
-                          left: (mediaQuery.size.width / 2.1) / 1.5,
-                          child: Text(
-                            'DARE',
-                            style: AppText.dareTextStyle(
-                              fontSize: (mediaQuery.size.width / 5.6) / 1.5,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  width: SizeConfig.blockSizeHorizontal * 100,
+                  height: SizeConfig.safeBlockVertical * 18,
+                  child: SvgPicture.asset(
+                    "assets/images/SVG/truthDareLogo.svg",
+                    semanticsLabel: "truthDareLogo",
                   ),
                 ),
+                SizedBox(height: SizeConfig.blockSizeVertical * 1.5),
                 TruthDareStartCardsButton(
-                  width: mediaQuery.size.width / 6,
-                  height: mediaQuery.size.width / 6,
-                  iconSize: mediaQuery.size.width / 10,
+                    width: SizeConfig.blockSizeHorizontal * 19,
+                    height: SizeConfig.blockSizeHorizontal * 19,
+                    iconSize: SizeConfig.blockSizeHorizontal * 9,
+                    corner: SizeConfig.blockSizeHorizontal * 38,
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: SizeConfig.blockSizeVertical * 1.5),
                 TruthModeButton(
                   mediaQuery: mediaQuery,
                   text: 'Party',
@@ -130,7 +78,7 @@ class _TruthDareModeState extends State<TruthDareMode>
                     setState(() {});
                   },
                 ),
-                SizedBox(height: 40),
+                SizedBox(height: SizeConfig.blockSizeVertical * 2.5),
               ],
             ),
           ),
@@ -139,3 +87,4 @@ class _TruthDareModeState extends State<TruthDareMode>
     );
   }
 }
+

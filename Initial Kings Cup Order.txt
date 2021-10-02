@@ -1,0 +1,8 @@
+before names: 
+
+from ace down,
+clubs,
+diamonds,
+hearts,
+spades
+

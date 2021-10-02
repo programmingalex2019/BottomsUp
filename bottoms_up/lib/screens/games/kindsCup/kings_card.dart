@@ -4,9 +4,10 @@ import 'package:playing_cards/playing_cards.dart';
 class KingsCard {
 
   final PlayingCard card; //comes from local deck
+  final String cardTitle;
   final String challenge; //come from firestore
 
-  KingsCard({this.card, this.challenge});
+  KingsCard({this.card, this.challenge, this.cardTitle});
 
 }
 //data from json

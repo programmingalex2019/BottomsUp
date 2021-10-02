@@ -25,7 +25,7 @@ fs.readdir(directoryPath, function(err, files) {
 
         menu.forEach(function(obj) {
             firestore
-                .collection("/users/spin-bottle/spin-bottle")
+                .collection("/users/kings-cup/kings-cup")
                 .add(obj)
                 .then(function(docRef) {
                     console.log("Document written");

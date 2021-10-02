@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
               liquidController: liquidController,
               fullTransitionValue: 1000, //how long transition
               enableLoop: true, //start from beginning when ended
-              enableSideReveal: false,
+              // enableSideReveal: false,
               slideIconWidget: Icon(Icons.arrow_left),
               positionSlideIcon: 0.7,
               waveType: WaveType.liquidReveal,
@@ -64,8 +64,10 @@ class _HomeState extends State<Home> {
 final textStyle = TextStyle(fontSize: 20.0, color: Colors.white);
 
 final liquidPages = [
+  
   TruthDare(), //TruthDare
   HeadsTails(),
   KingsCup(),
   SpinTheBottle(),
+
 ];
