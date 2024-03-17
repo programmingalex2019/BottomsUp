@@ -2,8 +2,6 @@
 
 Drinking Games to play at Parties !!!
 
-# Biggest project I am working on !!!
-
 - Currently in development. 
 
 
